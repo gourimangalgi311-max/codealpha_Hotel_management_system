@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Booking | Grand Stay Hotel</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #14213d, #354f70);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 550px;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #b58b45;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            color: #14213d;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 7px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 22px;
+            background: #b58b45;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #967038;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #b58b45;
+            text-decoration: none;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>GRAND STAY HOTEL</h1>
+    <h2>Cancel Booking</h2>
+
+    <p>Enter the same details you used when booking your room.</p>
+
+    <form id="cancelForm">
+
+        <label>Full Name</label>
+        <input
+            type="text"
+            id="cancelName"
+            placeholder="Enter your full name"
+            required
+        >
+
+        <label>Phone Number</label>
+        <input
+            type="tel"
+            id="cancelPhone"
+            placeholder="Enter phone number"
+            required
+        >
+
+        <label>Email Address</label>
+        <input
+            type="email"
+            id="cancelEmail"
+            placeholder="Enter email address"
+            required
+        >
+
+        <label>Reason for Cancellation</label>
+        <textarea
+            id="cancelReason"
+            rows="4"
+            placeholder="Enter cancellation reason"
+            required
+        ></textarea>
+
+        <button type="submit">Confirm Cancellation</button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <a href="customer.html">← Back to Customer Dashboard</a>
+    <a href="index.html">Back to Home</a>
+
+</div>
+
+<script>
+
+document.getElementById("cancelForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("cancelName").value.trim();
+    const phone = document.getElementById("cancelPhone").value.trim();
+    const email = document.getElementById("cancelEmail").value.trim();
+    const reason = document.getElementById("cancelReason").value.trim();
+
+    const message = document.getElementById("message");
+
+    // Get the latest room booking details
+    const savedName = localStorage.getItem("grandStayCustomerName");
+    const savedPhone = localStorage.getItem("grandStayCustomerPhone");
+    const savedEmail = localStorage.getItem("grandStayCustomerEmail");
+    const savedRoom = localStorage.getItem("grandStayRoomType");
+
+    // Check whether a booking exists
+    if (!savedName || !savedPhone || !savedEmail || !savedRoom) {
+        message.style.color = "red";
+        message.textContent = "No room booking was found.";
+        return;
+    }
+
+    // Match customer details
+    if (
+        name.toLowerCase() !== savedName.toLowerCase() ||
+        phone !== savedPhone ||
+        email.toLowerCase() !== savedEmail.toLowerCase()
+    ) {
+        message.style.color = "red";
+        message.textContent =
+            "Booking details do not match. Please enter the correct details.";
+        return;
+    }
+
+    // Check existing cancellation status
+    const currentStatus = localStorage.getItem("grandStayBookingStatus");
+
+    if (currentStatus === "Cancelled") {
+        message.style.color = "red";
+        message.textContent = "This booking has already been cancelled.";
+        return;
+    }
+
+    // Update booking status
+    localStorage.setItem("grandStayBookingStatus", "Cancelled");
+    localStorage.setItem("grandStayCancellationReason", reason);
+    localStorage.setItem(
+        "grandStayCancellationDate",
+        new Date().toLocaleString()
+    );
+
+    message.style.color = "green";
+    message.textContent =
+        "Your room booking has been cancelled successfully.";
+
+    alert("Booking cancelled successfully!");
+
+    document.getElementById("cancelForm").reset();
+
+});
+
+</script>
+
+</body>
+</html>

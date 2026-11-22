@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Booking | Grand Stay Hotel</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .booking-section {
+            background: #edf1ef;
+            padding: 60px 15px;
+            min-height: 100vh;
+        }
+
+        .booking-box {
+            background: white;
+            max-width: 650px;
+            margin: auto;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,.1);
+        }
+
+        .booking-box h2 {
+            text-align: center;
+            color: #17333b;
+            margin-bottom: 10px;
+        }
+
+        .booking-box .subtitle {
+            text-align: center;
+        }
+
+        .booking-box label {
+            display: block;
+            margin: 15px 0 6px;
+            font-weight: bold;
+        }
+
+        .booking-box input,
+        .booking-box select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .booking-box input:focus,
+        .booking-box select:focus {
+            outline: none;
+            border-color: #c49b59;
+        }
+
+        .booking-box .btn {
+            width: 100%;
+            margin-top: 25px;
+        }
+
+        .total-box {
+            background: #edf1ef;
+            padding: 18px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            color: #17333b;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">GRAND <span>STAY</span></div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="rooms.html">Rooms</a>
+        <a href="customer.html">Dashboard</a>
+    </nav>
+</header>
+
+<section class="booking-section">
+
+    <div class="booking-box">
+
+        <h2>Book Your Stay</h2>
+        <p class="subtitle">Reserve your comfortable room</p>
+
+        <form id="bookingForm">
+
+            <label for="name">Customer Name</label>
+            <input type="text" id="name"
+                   placeholder="Enter your name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email"
+                   placeholder="Enter your email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone"
+                   placeholder="10 digit mobile number"
+                   pattern="[0-9]{10}" maxlength="10" required>
+
+            <label for="room">Select Room Type</label>
+            <select id="room" required>
+                <option value="">Choose a room</option>
+                <option value="Standard">Standard Room - ₹1,800</option>
+                <option value="Deluxe">Deluxe Room - ₹2,800</option>
+                <option value="Suite">Luxury Suite - ₹4,500</option>
+            </select>
+
+            <label for="checkin">Check-in Date</label>
+            <input type="date" id="checkin" required>
+
+            <label for="checkout">Check-out Date</label>
+            <input type="date" id="checkout" required>
+
+            <label for="guests">Number of Guests</label>
+            <input type="number" id="guests"
+                   min="1" max="4" value="1" required>
+
+            <div class="total-box">
+                Total Amount: ₹<span id="total">0</span>
+            </div>
+
+            <button type="submit" class="btn">
+                Continue to Payment
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>© 2026 Grand Stay Hotel. All Rights Reserved.</p>
+</footer>
+
+<script>
+const roomPrices = {
+    Standard: 1800,
+    Deluxe: 2800,
+    Suite: 4500
+};
+
+const roomLimits = {
+    Standard: 2,
+    Deluxe: 3,
+    Suite: 4
+};
+
+const roomSelect = document.getElementById("room");
+const checkin = document.getElementById("checkin");
+const checkout = document.getElementById("checkout");
+const guests = document.getElementById("guests");
+
+const params = new URLSearchParams(window.location.search);
+const selectedRoom = params.get("room");
+
+if (selectedRoom && roomPrices[selectedRoom]) {
+    roomSelect.value = selectedRoom;
+}
+
+const today = new Date();
+const localToday = new Date(
+    today.getTime() - today.getTimezoneOffset() * 60000
+).toISOString().split("T")[0];
+
+checkin.min = localToday;
+checkout.min = localToday;
+
+function calculateTotal() {
+    const room = roomSelect.value;
+    const start = new Date(checkin.value + "T00:00:00");
+    const end = new Date(checkout.value + "T00:00:00");
+
+    if (!room || !checkin.value || !checkout.value ||
+        end <= start) {
+        document.getElementById("total").textContent = "0";
+        return;
+    }
+
+    const nights = Math.round((end - start) / 86400000);
+    const total = roomPrices[room] * nights;
+
+    document.getElementById("total").textContent =
+        total.toLocaleString("en-IN");
+}
+
+roomSelect.addEventListener("change", function() {
+    guests.max = roomLimits[roomSelect.value] || 4;
+    if (Number(guests.value) > Number(guests.max)) {
+        guests.value = guests.max;
+    }
+    calculateTotal();
+});
+
+checkin.addEventListener("change", function() {
+    checkout.min = checkin.value || localToday;
+    if (checkout.value && checkout.value <= checkin.value) {
+        checkout.value = "";
+    }
+    calculateTotal();
+});
+
+checkout.addEventListener("change", calculateTotal);
+guests.addEventListener("input", calculateTotal);
+
+document.getElementById("bookingForm").addEventListener(
+    "submit", function(e) {
+
+        e.preventDefault();
+
+        if (checkout.value <= checkin.value) {
+            alert("Check-out date must be after check-in date.");
+            return;
+        }
+
+        if (Number(guests.value) > roomLimits[roomSelect.value]) {
+            alert("Too many guests for this room.");
+            return;
+        }
+
+        const booking = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            room: roomSelect.value,
+            checkin: checkin.value,
+            checkout: checkout.value,
+            guests: guests.value,
+            total: document.getElementById("total").textContent
+        };
+
+        sessionStorage.setItem(
+            "currentBooking", JSON.stringify(booking)
+        );
+
+        window.location.href = "payment.html";
+    }
+);
+
+calculateTotal();
+</script>
+
+</body>
+</html>

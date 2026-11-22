@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Grand Stay Hotel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .profile-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .profile-container h1 {
+            margin-bottom: 10px;
+        }
+
+        .profile-form {
+            margin-top: 25px;
+        }
+
+        .profile-form label {
+            display: block;
+            margin: 15px 0 7px;
+            font-weight: bold;
+        }
+
+        .profile-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .profile-form button {
+            margin-top: 22px;
+            padding: 12px 22px;
+            background: #9b713c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .profile-message {
+            margin-top: 15px;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Grand Stay Hotel</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="customer.html">Dashboard</a>
+        <a href="booking-history.html">My Bookings</a>
+    </nav>
+</header>
+
+<main class="profile-container">
+
+    <h1>My Profile</h1>
+    <p>View and update your personal information.</p>
+
+    <form class="profile-form" id="profileForm">
+
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" required>
+
+        <label for="city">City</label>
+        <input type="text" id="city" required>
+
+        <button type="submit">Save Profile</button>
+
+        <p class="profile-message" id="message"></p>
+
+    </form>
+
+</main>
+
+<script>
+    const profileForm = document.getElementById("profileForm");
+
+    const savedProfile = JSON.parse(
+        localStorage.getItem("hotelProfile") || "{}"
+    );
+
+    document.getElementById("name").value = savedProfile.name || "";
+    document.getElementById("email").value = savedProfile.email || "";
+    document.getElementById("phone").value = savedProfile.phone || "";
+    document.getElementById("city").value = savedProfile.city || "";
+
+    profileForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const profile = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            city: document.getElementById("city").value
+        };
+
+        localStorage.setItem("hotelProfile", JSON.stringify(profile));
+
+        document.getElementById("message").textContent =
+            "Your profile has been saved successfully!";
+    });
+</script>
+
+</body>
+</html>

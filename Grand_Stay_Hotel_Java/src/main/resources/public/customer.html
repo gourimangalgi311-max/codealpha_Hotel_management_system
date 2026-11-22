@@ -1,0 +1,671 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard | Grand Stay Hotel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f5f9;
+            color: #333;
+        }
+
+        header {
+            background: #172b4d;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        nav {
+            background: #243b60;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 8px 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            color: #ffd166;
+        }
+
+        .welcome {
+            background: linear-gradient(120deg, #243b60, #5176a5);
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .welcome h2 {
+            font-size: 30px;
+            color: white;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .section {
+            background: white;
+            padding: 28px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px #ddd;
+        }
+
+        h2 {
+            color: #172b4d;
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        button {
+            background: #172b4d;
+            color: white;
+            border: none;
+            padding: 13px 22px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #345786;
+        }
+
+        .amount-box {
+            background: #eef3fa;
+            padding: 18px;
+            border-radius: 7px;
+            color: #172b4d;
+            font-size: 23px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .note {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: #f4f5f9;
+            padding: 22px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .service-card h3 {
+            color: #172b4d;
+        }
+
+        .service-card a {
+            display: inline-block;
+            background: #172b4d;
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        /* Cancellation button */
+
+        .cancel-section {
+            background: #fff;
+            padding: 25px;
+            margin: 25px auto;
+            width: 90%;
+            max-width: 1100px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px #ddd;
+        }
+
+        .cancel-button {
+            display: inline-block;
+            background: #c0392b;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .cancel-button:hover {
+            background: #922b21;
+        }
+
+        .booking-details {
+            background: #eef3fa;
+            padding: 18px;
+            border-radius: 8px;
+            line-height: 1.9;
+        }
+
+        .booking-status {
+            font-weight: bold;
+            color: #16803c;
+        }
+
+        .cancelled-status {
+            color: #c0392b;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #172b4d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        @media(max-width: 600px) {
+            nav a {
+                margin: 7px;
+            }
+
+            .section {
+                padding: 18px;
+            }
+
+            .welcome h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Grand Stay Hotel</h1>
+    <p>Customer Dashboard</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="#roomBooking">Room Booking</a>
+    <a href="#eventBooking">Event Booking</a>
+    <a href="#myBooking">My Booking</a>
+    <a href="#services">My Services</a>
+    <a href="cancel.html">Cancel Booking</a>
+    <a href="payment.html">Payment</a>
+    <a href="login.html">Logout</a>
+</nav>
+
+<section class="welcome">
+    <h2>Welcome to Grand Stay Hotel!</h2>
+    <p>Book your rooms, organize events and enjoy our hotel services.</p>
+</section>
+
+<!-- VISIBLE CANCELLATION OPTION -->
+
+<section class="cancel-section">
+
+    <h2>Manage Your Booking</h2>
+
+    <p>
+        Want to cancel your existing room booking?
+        You can cancel your booking using the button below.
+    </p>
+
+    <a href="cancel.html" class="cancel-button">
+        Cancel My Booking
+    </a>
+
+</section>
+
+<div class="container">
+
+    <!-- MY BOOKING STATUS -->
+
+    <section class="section" id="myBooking">
+
+        <h2>My Booking Status</h2>
+
+        <div id="bookingDetails" class="booking-details">
+            No room booking found. Please book a room first.
+        </div>
+
+    </section>
+
+    <!-- ROOM BOOKING -->
+
+    <section class="section" id="roomBooking">
+
+        <h2>Room Booking</h2>
+        <p>Select your preferred room and booking dates.</p>
+
+        <form id="roomForm" onsubmit="roomBooking(event)">
+
+            <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" id="roomCustomerName" required
+                       placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="roomPhone" pattern="[0-9]{10}"
+                       maxlength="10" required
+                       placeholder="Enter 10-digit phone number">
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="roomEmail" required
+                       placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label>Select Room Type</label>
+                <select id="roomType" required onchange="calculateRoomAmount()">
+                    <option value="">Select Room</option>
+                    <option value="1800">Standard Room - ₹1,800 / night</option>
+                    <option value="2800">Deluxe Room - ₹2,800 / night</option>
+                    <option value="4500">Luxury Suite - ₹4,500 / night</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Check-in Date</label>
+                <input type="date" id="checkin" required
+                       onchange="calculateRoomAmount()">
+            </div>
+
+            <div class="form-group">
+                <label>Check-out Date</label>
+                <input type="date" id="checkout" required
+                       onchange="calculateRoomAmount()">
+            </div>
+
+            <div class="form-group">
+                <label>Number of Guests</label>
+                <input type="number" id="guests" min="1" max="20"
+                       required placeholder="Enter number of guests">
+            </div>
+
+            <label>Estimated Total Amount</label>
+            <div class="amount-box" id="roomAmount">₹0</div>
+
+            <p class="note">
+                Amount is calculated automatically based on room type and number of nights.
+            </p>
+
+            <button type="submit">Book Room</button>
+
+        </form>
+
+    </section>
+
+    <!-- EVENT BOOKING -->
+
+    <section class="section" id="eventBooking">
+
+        <h2>Event Booking</h2>
+        <p>Organize your special occasions at Grand Stay Hotel.</p>
+
+        <form id="eventForm" onsubmit="eventBooking(event)">
+
+            <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" id="eventCustomerName" required
+                       placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="eventPhone" pattern="[0-9]{10}"
+                       maxlength="10" required
+                       placeholder="Enter phone number">
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="eventEmail" required
+                       placeholder="Enter email address">
+            </div>
+
+            <div class="form-group">
+                <label>Event Type</label>
+                <select id="eventType" required>
+                    <option value="">Select Event</option>
+                    <option>Wedding</option>
+                    <option>Birthday Party</option>
+                    <option>Meeting</option>
+                    <option>Conference</option>
+                    <option>Family Function</option>
+                    <option>Other Party</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Event Date</label>
+                <input type="date" id="eventDate" required>
+            </div>
+
+            <div class="form-group">
+                <label>Number of Guests</label>
+                <input type="number" id="eventGuests" min="1"
+                       required placeholder="Enter number of guests">
+            </div>
+
+            <div class="form-group">
+                <label>Additional Requirements</label>
+                <textarea id="eventRequirements"
+                          placeholder="Enter your requirements"></textarea>
+            </div>
+
+            <button type="submit">Book Event</button>
+
+        </form>
+
+    </section>
+
+    <!-- CUSTOMER SERVICES -->
+
+    <section class="section" id="services">
+
+        <h2>My Services</h2>
+
+        <div class="service-grid">
+
+            <div class="service-card">
+                <h3>Cancel Booking</h3>
+                <p>Cancel your existing room booking.</p>
+                <a href="cancel.html">Cancel Booking</a>
+            </div>
+
+            <div class="service-card">
+                <h3>Payment Management</h3>
+                <p>View your room booking amount and confirm payment.</p>
+                <a href="payment.html">Go to Payment</a>
+            </div>
+
+            <div class="service-card">
+                <h3>Hotel Facilities</h3>
+                <p>Explore hotel facilities and services.</p>
+                <a href="index.html#facilities">View Facilities</a>
+            </div>
+
+            <div class="service-card">
+                <h3>Food and Dining</h3>
+                <p>Enjoy delicious food and dining services.</p>
+                <a href="index.html#food">View Food Services</a>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<footer>
+    <p>© 2026 Grand Stay Hotel. All Rights Reserved.</p>
+    <p>Kalaburagi, Karnataka, India</p>
+</footer>
+
+<script>
+
+    // Set minimum dates to today
+
+    const today = new Date().toLocaleDateString("en-CA");
+
+    document.getElementById("checkin").min = today;
+    document.getElementById("checkout").min = today;
+    document.getElementById("eventDate").min = today;
+
+    // Automatic room amount calculation
+
+    function calculateRoomAmount() {
+
+        const price = Number(document.getElementById("roomType").value);
+        const checkin = document.getElementById("checkin").value;
+        const checkout = document.getElementById("checkout").value;
+
+        const amountDisplay = document.getElementById("roomAmount");
+
+        amountDisplay.textContent = "₹0";
+
+        if (!price || !checkin || !checkout) {
+            return;
+        }
+
+        const startDate = new Date(checkin + "T00:00:00");
+        const endDate = new Date(checkout + "T00:00:00");
+
+        const nights = Math.round(
+            (endDate - startDate) / (1000 * 60 * 60 * 24)
+        );
+
+        if (nights <= 0) {
+            amountDisplay.textContent =
+                "Please select a valid check-out date";
+            return;
+        }
+
+        const totalAmount = price * nights;
+
+        amountDisplay.textContent =
+            "₹" + totalAmount.toLocaleString("en-IN") +
+            " (" + nights + " night(s))";
+    }
+
+    // Room booking
+
+    function roomBooking(event) {
+
+        event.preventDefault();
+
+        const name = document.getElementById("roomCustomerName").value.trim();
+        const phone = document.getElementById("roomPhone").value.trim();
+        const email = document.getElementById("roomEmail").value.trim();
+
+        const roomSelect = document.getElementById("roomType");
+        const roomPrice = Number(roomSelect.value);
+        const roomName = roomSelect.selectedOptions[0].text;
+
+        const checkin = document.getElementById("checkin").value;
+        const checkout = document.getElementById("checkout").value;
+        const guests = document.getElementById("guests").value;
+
+        const startDate = new Date(checkin + "T00:00:00");
+        const endDate = new Date(checkout + "T00:00:00");
+
+        const nights = Math.round(
+            (endDate - startDate) / (1000 * 60 * 60 * 24)
+        );
+
+        if (nights <= 0) {
+            alert("Check-out date must be after check-in date.");
+            return;
+        }
+
+        const totalAmount = roomPrice * nights;
+
+        // Store booking details
+
+        localStorage.setItem("grandStayRoomAmount", totalAmount);
+        localStorage.setItem("grandStayRoomType", roomName);
+        localStorage.setItem("grandStayRoomNights", nights);
+        localStorage.setItem("grandStayCustomerName", name);
+        localStorage.setItem("grandStayCustomerPhone", phone);
+        localStorage.setItem("grandStayCustomerEmail", email);
+        localStorage.setItem("grandStayCheckin", checkin);
+        localStorage.setItem("grandStayCheckout", checkout);
+        localStorage.setItem("grandStayGuests", guests);
+
+        // Set booking status to Booked for a new booking
+
+        localStorage.setItem("grandStayBookingStatus", "Booked");
+
+        // Clear old cancellation details
+
+        localStorage.removeItem("grandStayCancellationReason");
+        localStorage.removeItem("grandStayCancellationDate");
+
+        alert(
+            "Room booked successfully!\n\n" +
+            "Customer: " + name +
+            "\nRoom: " + roomName +
+            "\nNumber of Nights: " + nights +
+            "\nTotal Amount: ₹" + totalAmount.toLocaleString("en-IN") +
+            "\n\nProceed to payment."
+        );
+
+        window.location.href = "payment.html";
+    }
+
+    // Display current booking status
+
+    function displayBookingStatus() {
+
+        const details = document.getElementById("bookingDetails");
+
+        const name = localStorage.getItem("grandStayCustomerName");
+        const phone = localStorage.getItem("grandStayCustomerPhone");
+        const email = localStorage.getItem("grandStayCustomerEmail");
+        const room = localStorage.getItem("grandStayRoomType");
+        const checkin = localStorage.getItem("grandStayCheckin");
+        const checkout = localStorage.getItem("grandStayCheckout");
+        const amount = localStorage.getItem("grandStayRoomAmount");
+        const guests = localStorage.getItem("grandStayGuests");
+
+        const status =
+            localStorage.getItem("grandStayBookingStatus") || "Booked";
+
+        if (!name || !room) {
+            details.textContent =
+                "No room booking found. Please book a room first.";
+            return;
+        }
+
+        let statusHTML = "";
+
+        if (status === "Cancelled") {
+            statusHTML =
+                '<span class="cancelled-status">Cancelled</span>';
+        } else {
+            statusHTML =
+                '<span class="booking-status">Booked</span>';
+        }
+
+        details.innerHTML = `
+            <strong>Customer Name:</strong> ${escapeHTML(name)}<br>
+            <strong>Phone:</strong> ${escapeHTML(phone || "")}<br>
+            <strong>Email:</strong> ${escapeHTML(email || "")}<br>
+            <strong>Room:</strong> ${escapeHTML(room)}<br>
+            <strong>Check-in:</strong> ${escapeHTML(checkin || "")}<br>
+            <strong>Check-out:</strong> ${escapeHTML(checkout || "")}<br>
+            <strong>Guests:</strong> ${escapeHTML(guests || "")}<br>
+            <strong>Total Amount:</strong> ₹${Number(amount || 0).toLocaleString("en-IN")}<br>
+            <strong>Booking Status:</strong> ${statusHTML}
+        `;
+
+        if (status === "Cancelled") {
+            const reason =
+                localStorage.getItem("grandStayCancellationReason") || "";
+
+            details.innerHTML += `
+                <br><strong>Cancellation Reason:</strong>
+                ${escapeHTML(reason)}
+            `;
+        } else {
+            details.innerHTML += `
+                <br><a href="cancel.html"
+                    style="display:inline-block;background:#c0392b;color:white;
+                    padding:10px 18px;border-radius:5px;text-decoration:none;
+                    margin-top:12px;font-weight:bold;">
+                    Cancel This Booking
+                </a>
+            `;
+        }
+    }
+
+    // Safely display customer-entered text
+
+    function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, function(character) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            }[character];
+        });
+    }
+
+    // Event booking
+
+    function eventBooking(event) {
+
+        event.preventDefault();
+
+        alert(
+            "Event booking request submitted successfully!\n" +
+            "Thank you for choosing Grand Stay Hotel."
+        );
+
+        document.getElementById("eventForm").reset();
+    }
+
+    // Load booking information when the page opens
+
+    displayBookingStatus();
+
+</script>
+
+</body>
+</html>

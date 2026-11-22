@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Stay Hotel | Comfort & Luxury</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: #333;
+            background: #fff;
+        }
+
+        header {
+            background: #14213d;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #d6ad60;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #d6ad60;
+        }
+
+        .hero {
+            min-height: 570px;
+            background:
+                linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+                url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=85");
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 19px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #c39a52;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: #a77c35;
+        }
+
+        section {
+            padding: 65px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #14213d;
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 35px;
+        }
+
+        .rooms, .services, .events, .food, .trips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,.12);
+            padding-bottom: 20px;
+            transition: .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            color: #14213d;
+            padding: 15px 15px 8px;
+        }
+
+        .card p {
+            padding: 0 15px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .price {
+            color: #a77c35;
+            font-weight: bold;
+            padding: 12px 15px;
+        }
+
+        .card .btn {
+            margin-left: 15px;
+        }
+
+        #about {
+            background: #f7f5f0;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .about-content {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        #facilities {
+            background: #f7f5f0;
+        }
+
+        .facility-card {
+            background: white;
+            text-align: center;
+            padding: 28px 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.08);
+        }
+
+        .facility-card h3 {
+            color: #14213d;
+            margin-bottom: 10px;
+        }
+
+        #feedback {
+            background: #f7f5f0;
+        }
+
+        .feedback-form {
+            max-width: 550px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,.1);
+        }
+
+        .feedback-form input,
+        .feedback-form textarea,
+        .feedback-form select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .feedback-form textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .feedback-form button {
+            width: 100%;
+        }
+
+        #contact {
+            text-align: center;
+            line-height: 2;
+        }
+
+        footer {
+            background: #14213d;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .hero-content h1 {
+                font-size: 34px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">GRAND STAY HOTEL</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#rooms">Rooms</a>
+        <a href="#facilities">Facilities</a>
+        <a href="#events">Events</a>
+        <a href="#food">Food</a>
+        <a href="#feedback">Feedback</a>
+        <a href="#contact">Contact</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+    </nav>
+</header>
+
+<!-- HOME -->
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>Welcome to Grand Stay Hotel</h1>
+
+        <p>
+            Affordable Comfort, Quality Service and Memorable Experiences.
+        </p>
+
+        <a href="#rooms" class="btn">Explore Rooms</a>
+        <a href="register.html" class="btn">Book Your Stay</a>
+    </div>
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+    <h2 class="section-title">About Our Hotel</h2>
+
+    <p class="section-subtitle">
+        Experience comfort, hospitality and unforgettable moments.
+    </p>
+
+    <div class="about-content">
+        <p>
+            Grand Stay Hotel provides affordable accommodation with
+            quality services for families, couples, individual travellers
+            and tourists. Our hotel offers comfortable rooms, delicious
+            food, modern facilities and entertainment activities.
+            We also organize birthdays, weddings, parties, meetings
+            and conferences in a welcoming environment.
+        </p>
+    </div>
+</section>
+
+<!-- ROOMS -->
+
+<section id="rooms">
+    <h2 class="section-title">Our Rooms & Suites</h2>
+
+    <p class="section-subtitle">
+        Comfort at every price.
+    </p>
+
+    <div class="rooms">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80" alt="Standard Room">
+
+            <h3>Cozy Standard Room</h3>
+
+            <p>Comfortable room for everyday stays. Suitable for up to 2 guests.</p>
+
+            <div class="price">₹1,800 / night</div>
+
+            <a href="login.html" class="btn">Book This Room</a>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80" alt="Deluxe Room">
+
+            <h3>Grand Deluxe Room</h3>
+
+            <p>Spacious room with premium comfort. Suitable for up to 3 guests.</p>
+
+            <div class="price">₹2,800 / night</div>
+
+            <a href="login.html" class="btn">Book This Room</a>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80" alt="Luxury Suite">
+
+            <h3>Luxury Suite</h3>
+
+            <p>Elegant accommodation with extra space and premium facilities.</p>
+
+            <div class="price">₹4,500 / night</div>
+
+            <a href="login.html" class="btn">Book This Room</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- FACILITIES -->
+
+<section id="facilities">
+    <h2 class="section-title">Our Facilities</h2>
+
+    <p class="section-subtitle">
+        Everything you need for a comfortable stay.
+    </p>
+
+    <div class="services">
+
+        <div class="facility-card">
+            <h3>🏊 Swimming Pool</h3>
+            <p>Relax and enjoy our swimming pool.</p>
+        </div>
+
+        <div class="facility-card">
+            <h3>📶 Free Wi-Fi</h3>
+            <p>Stay connected throughout your visit.</p>
+        </div>
+
+        <div class="facility-card">
+            <h3>🚗 Parking</h3>
+            <p>Convenient parking facilities for guests.</p>
+        </div>
+
+        <div class="facility-card">
+            <h3>🛎 Room Service</h3>
+            <p>Enjoy convenient room service.</p>
+        </div>
+
+        <div class="facility-card">
+            <h3>💪 Fitness Centre</h3>
+            <p>Maintain your fitness during your stay.</p>
+        </div>
+
+        <div class="facility-card">
+            <h3>❄ Air Conditioning</h3>
+            <p>Comfortable rooms with air conditioning.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- EVENTS -->
+
+<section id="events">
+    <h2 class="section-title">Events & Celebrations</h2>
+
+    <p class="section-subtitle">
+        Celebrate your special moments with us.
+    </p>
+
+    <div class="events">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=800&q=80" alt="Wedding">
+            <h3>Wedding Celebrations</h3>
+            <p>Beautiful arrangements for your special wedding day.</p>
+            <a href="login.html" class="btn">Book Event</a>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80" alt="Birthday">
+            <h3>Birthday Parties</h3>
+            <p>Make your birthday celebrations memorable.</p>
+            <a href="login.html" class="btn">Book Event</a>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80" alt="Conference">
+            <h3>Meetings & Conferences</h3>
+            <p>Professional spaces for business meetings and conferences.</p>
+            <a href="login.html" class="btn">Book Event</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOD -->
+
+<section id="food">
+    <h2 class="section-title">Food & Dining</h2>
+
+    <p class="section-subtitle">
+        Delicious food and wonderful dining experiences.
+    </p>
+
+    <div class="food">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Restaurant">
+            <h3>Multi-Cuisine Restaurant</h3>
+            <p>Enjoy delicious dishes from different cuisines.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80" alt="Fine Dining">
+            <h3>Fine Dining</h3>
+            <p>Enjoy a pleasant and comfortable dining experience.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Cafe">
+            <h3>Cafe & Refreshments</h3>
+            <p>Enjoy refreshing beverages and light snacks.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ENTERTAINMENT -->
+
+<section id="trips">
+    <h2 class="section-title">Entertainment & Trips</h2>
+
+    <p class="section-subtitle">
+        Discover exciting experiences during your stay.
+    </p>
+
+    <div class="trips">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80" alt="Nature trip">
+            <h3>Nature Trips</h3>
+            <p>Explore beautiful natural destinations.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80" alt="Sightseeing">
+            <h3>Local Sightseeing</h3>
+            <p>Discover nearby attractions and tourist destinations.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80" alt="Entertainment">
+            <h3>Entertainment</h3>
+            <p>Enjoy leisure activities and entertainment.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- FEEDBACK -->
+
+<section id="feedback">
+    <h2 class="section-title">Customer Feedback</h2>
+
+    <p class="section-subtitle">
+        Share your experience with Grand Stay Hotel.
+    </p>
+
+    <form class="feedback-form" id="feedbackForm">
+
+        <input type="text" placeholder="Your Name" required>
+
+        <input type="email" placeholder="Your Email" required>
+
+        <select required>
+            <option value="">Select Rating</option>
+            <option>Excellent</option>
+            <option>Very Good</option>
+            <option>Good</option>
+            <option>Average</option>
+        </select>
+
+        <textarea placeholder="Write your feedback..." required></textarea>
+
+        <button type="submit" class="btn">
+            Submit Feedback
+        </button>
+
+    </form>
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+    <h2 class="section-title">Contact Us</h2>
+
+    <p>We are happy to assist you.</p>
+
+    <p><strong>Hotel:</strong> Grand Stay Hotel</p>
+
+    <p><strong>Email:</strong> grandstayhotel@gmail.com</p>
+
+    <p><strong>Phone:</strong> +91 9876543210</p>
+
+    <p><strong>Address:</strong> Kalaburagi, Karnataka, India</p>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    <p>© 2026 Grand Stay Hotel. All Rights Reserved.</p>
+    <p>Affordable Comfort | Quality Service | Memorable Experiences</p>
+</footer>
+
+<script>
+    document.getElementById("feedbackForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            feedbackSuccess();
+
+            this.reset();
+        });
+</script>
+
+</body>
+</html>

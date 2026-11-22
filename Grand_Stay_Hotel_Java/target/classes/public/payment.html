@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment | Grand Stay Hotel</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+    color: #333;
+}
+
+header {
+    background: #172b4d;
+    color: white;
+    text-align: center;
+    padding: 22px;
+}
+
+nav {
+    background: #243b60;
+    padding: 14px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 650px;
+    margin: 35px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px #ddd;
+}
+
+h2 {
+    color: #172b4d;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 7px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+    background: #b58b45;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #987238;
+}
+
+.message {
+    text-align: center;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+footer {
+    background: #172b4d;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    margin-top: 40px;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    color: #243b60;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Grand Stay Hotel</h1>
+    <p>Customer Payment</p>
+</header>
+
+<nav>
+    <a href="customer.html">Customer Home</a>
+    <a href="booking.html">Room Booking</a>
+    <a href="event-booking.html">Event Booking</a>
+    <a href="admin.html">Admin</a>
+</nav>
+
+<div class="container">
+
+    <h2>Payment Details</h2>
+
+    <form id="paymentForm">
+
+        <label for="customerName">Customer Name</label>
+        <input type="text" id="customerName" required>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" pattern="[0-9]{10}" maxlength="10" required>
+
+        <label for="paymentType">Payment For</label>
+        <select id="paymentType" required>
+            <option value="">Select Payment Type</option>
+            <option value="Room Booking">Room Booking</option>
+            <option value="Event Booking">Event Booking</option>
+            <option value="Food and Dining">Food and Dining</option>
+            <option value="Other Services">Other Services</option>
+        </select>
+
+        <label for="amount">Amount (₹)</label>
+        <input type="number" id="amount" min="1" step="0.01" required>
+
+        <label for="paymentMethod">Payment Method</label>
+        <select id="paymentMethod" required>
+            <option value="">Select Payment Method</option>
+            <option value="Cash">Cash</option>
+            <option value="UPI">UPI</option>
+            <option value="Debit Card">Debit Card</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Net Banking">Net Banking</option>
+        </select>
+
+        <button type="submit">Submit Payment</button>
+
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <a href="customer.html" class="back-link">Back to Customer Page</a>
+
+</div>
+
+<footer>
+    <p>© 2026 Grand Stay Hotel. All Rights Reserved.</p>
+    <p>Kalaburagi, Karnataka, India</p>
+</footer>
+
+<script>
+
+// Automatically fill customer details if available
+window.addEventListener("DOMContentLoaded", function() {
+
+    const savedName =
+        localStorage.getItem("grandStayCustomerName");
+
+    const savedPhone =
+        localStorage.getItem("grandStayCustomerPhone");
+
+    if (savedName) {
+        document.getElementById("customerName").value = savedName;
+    }
+
+    if (savedPhone) {
+        document.getElementById("phone").value = savedPhone;
+    }
+
+});
+
+
+// SAVE PAYMENT DETAILS
+document.getElementById("paymentForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const paymentType = document.getElementById("paymentType").value;
+    const amount = Number(document.getElementById("amount").value);
+    const method = document.getElementById("paymentMethod").value;
+
+    const message = document.getElementById("message");
+
+    if (!name || !/^[0-9]{10}$/.test(phone) ||
+        !paymentType || !Number.isFinite(amount) || amount <= 0 || !method) {
+
+        message.textContent = "Please enter valid payment details.";
+        message.className = "message error";
+        return;
+    }
+
+    // Get existing payment records
+    let payments = [];
+
+    try {
+        payments = JSON.parse(localStorage.getItem("hotelPayments") || "[]");
+
+        if (!Array.isArray(payments)) {
+            payments = [];
+        }
+
+    } catch (error) {
+        payments = [];
+    }
+
+    // Create new payment record
+    const payment = {
+        name: name,
+        customerName: name,
+        phone: phone,
+        paymentType: paymentType,
+        paymentFor: paymentType,
+        amount: amount,
+        method: method,
+        paymentMethod: method,
+        date: new Date().toLocaleDateString("en-IN"),
+        paymentDate: new Date().toLocaleDateString("en-IN"),
+        status: "Paid"
+    };
+
+    // Save payment
+    payments.push(payment);
+
+    localStorage.setItem("hotelPayments", JSON.stringify(payments));
+
+    // Display success message
+    message.textContent = "Payment submitted successfully!";
+    message.className = "message success";
+
+    // Clear payment fields
+    document.getElementById("paymentType").value = "";
+    document.getElementById("amount").value = "";
+    document.getElementById("paymentMethod").value = "";
+
+});
+
+</script>
+
+</body>
+</html>

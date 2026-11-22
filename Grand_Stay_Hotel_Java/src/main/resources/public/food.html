@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Services | Grand Stay Hotel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .food-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 25px;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .food-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .food-card h3 {
+            color: #9b713c;
+            margin-bottom: 10px;
+        }
+
+        .food-card p {
+            margin-bottom: 12px;
+        }
+
+        .food-card button,
+        .food-form button {
+            background: #9b713c;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .food-form {
+            background: white;
+            padding: 25px;
+            margin-top: 35px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .food-form label {
+            display: block;
+            margin: 15px 0 7px;
+            font-weight: bold;
+        }
+
+        .food-form input,
+        .food-form select,
+        .food-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .food-form textarea {
+            min-height: 75px;
+        }
+
+        #foodMessage {
+            margin-top: 15px;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Grand Stay Hotel</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="customer.html">Dashboard</a>
+        <a href="rooms.html">Rooms</a>
+    </nav>
+</header>
+
+<main class="food-container">
+
+    <h1>Restaurant & Food Services</h1>
+    <p>Enjoy delicious meals and comfortable dining during your stay.</p>
+
+    <div class="food-grid">
+
+        <div class="food-card">
+            <h3>Breakfast</h3>
+            <p>Fresh breakfast options to start your day.</p>
+            <p><strong>Starting from ₹150</strong></p>
+            <button onclick="selectFood('Breakfast')">Order</button>
+        </div>
+
+        <div class="food-card">
+            <h3>Lunch</h3>
+            <p>Enjoy a variety of Indian and other meals.</p>
+            <p><strong>Starting from ₹250</strong></p>
+            <button onclick="selectFood('Lunch')">Order</button>
+        </div>
+
+        <div class="food-card">
+            <h3>Dinner</h3>
+            <p>Delicious dinner options for families and guests.</p>
+            <p><strong>Starting from ₹300</strong></p>
+            <button onclick="selectFood('Dinner')">Order</button>
+        </div>
+
+        <div class="food-card">
+            <h3>Room Service</h3>
+            <p>Get food delivered directly to your hotel room.</p>
+            <p><strong>Starting from ₹200</strong></p>
+            <button onclick="selectFood('Room Service')">Order</button>
+        </div>
+
+    </div>
+
+    <form class="food-form" id="foodForm">
+
+        <h2>Place Your Food Order</h2>
+
+        <label for="customer">Customer Name</label>
+        <input type="text" id="customer" required>
+
+        <label for="foodType">Select Food Service</label>
+        <select id="foodType" required>
+            <option value="">Choose service</option>
+            <option>Breakfast</option>
+            <option>Lunch</option>
+            <option>Dinner</option>
+            <option>Room Service</option>
+        </select>
+
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" min="1" value="1" required>
+
+        <label for="roomNumber">Room Number (if applicable)</label>
+        <input type="text" id="roomNumber" placeholder="Enter room number">
+
+        <label for="instructions">Special Instructions</label>
+        <textarea id="instructions" placeholder="Enter your food preferences"></textarea>
+
+        <button type="submit">Place Order</button>
+
+        <p id="foodMessage"></p>
+
+    </form>
+
+</main>
+
+<script>
+    function selectFood(type) {
+        document.getElementById("foodType").value = type;
+        document.getElementById("foodForm").scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+    document.getElementById("foodForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const order = {
+            id: Date.now(),
+            customer: document.getElementById("customer").value,
+            foodType: document.getElementById("foodType").value,
+            quantity: document.getElementById("quantity").value,
+            roomNumber: document.getElementById("roomNumber").value,
+            instructions: document.getElementById("instructions").value,
+            status: "Pending"
+        };
+
+        const orders = JSON.parse(
+            localStorage.getItem("hotelFoodOrders") || "[]"
+        );
+
+        orders.push(order);
+
+        localStorage.setItem("hotelFoodOrders", JSON.stringify(orders));
+
+        document.getElementById("foodMessage").textContent =
+            "Your food order has been placed successfully!";
+
+        document.getElementById("foodForm").reset();
+    });
+</script>
+
+</body>
+</html>

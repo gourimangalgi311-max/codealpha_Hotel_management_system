@@ -1,0 +1,883 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Grand Stay Hotel</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f5f9;
+            color: #333;
+        }
+
+        header {
+            background: #172b4d;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        nav {
+            background: #243b60;
+            padding: 14px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 8px 12px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffd166;
+        }
+
+        .welcome {
+            background: linear-gradient(120deg, #243b60, #5176a5);
+            color: white;
+            text-align: center;
+            padding: 35px 15px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 9px;
+            text-align: center;
+            box-shadow: 0 2px 8px #ddd;
+        }
+
+        .stat-card h3 {
+            color: #172b4d;
+            margin-top: 0;
+        }
+
+        .section {
+            background: white;
+            padding: 28px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px #ddd;
+            scroll-margin-top: 20px;
+        }
+
+        h2 {
+            color: #172b4d;
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+            background: white;
+        }
+
+        textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        button {
+            background: #172b4d;
+            color: white;
+            padding: 13px 22px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #345786;
+        }
+
+        .note {
+            color: #666;
+            font-size: 13px;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+        }
+
+        .service-card {
+            background: #f4f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .service-card h3 {
+            color: #172b4d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #172b4d;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f4f5f9;
+        }
+
+        footer {
+            background: #172b4d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        @media(max-width: 600px) {
+            .section {
+                padding: 18px;
+            }
+
+            nav a {
+                margin: 7px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Grand Stay Hotel</h1>
+    <p>Admin Dashboard</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#roomBookings">Room Bookings</a>
+    <a href="#eventBookings">Event Bookings</a>
+    <a href="#cancellations">Cancellations</a>
+    <a href="#payments">Payments</a>
+    <a href="#services">Services</a>
+    <a href="login.html">Logout</a>
+</nav>
+
+<section class="welcome">
+    <h2>Welcome, Administrator!</h2>
+    <p>Manage hotel bookings, events, payments and services.</p>
+</section>
+
+<div class="container">
+
+    <!-- DASHBOARD -->
+
+    <section class="section" id="dashboard">
+
+        <h2>Dashboard Overview</h2>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <h3>Room Bookings</h3>
+                <p>Manage customer room bookings</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Event Bookings</h3>
+                <p>Manage hotel events</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Payments</h3>
+                <p>Manage customer payments</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Cancellations</h3>
+                <p>Manage cancellation requests</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ROOM BOOKINGS -->
+
+    <section class="section" id="roomBookings">
+
+        <h2>Number of Rooms Booked</h2>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <h3>Total Room Bookings</h3>
+                <h1 id="totalRoomBookings">0</h1>
+                <p>Total confirmed room bookings</p>
+            </div>
+
+        </div>
+
+        <h3>Customers Who Booked Rooms</h3>
+
+        <div style="overflow-x:auto;">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Phone Number</th>
+                        <th>Room Type</th>
+                        <th>Check-in Date</th>
+                        <th>Check-out Date</th>
+                        <th>Guests</th>
+                    </tr>
+                </thead>
+
+                <tbody id="roomBookingsTable">
+
+                    <tr>
+                        <td colspan="6" style="text-align:center;">
+                            No room bookings available.
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <br>
+
+        <button type="button" onclick="loadRoomBookings()">
+            Refresh Room Bookings
+        </button>
+
+        <hr style="margin:28px 0;">
+
+        <h2>Room Booking Management</h2>
+
+        <form onsubmit="showMessage(event, 'Room booking details submitted successfully!')">
+
+            <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" required placeholder="Enter customer name">
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" pattern="[0-9]{10}" maxlength="10"
+                       required placeholder="Enter phone number">
+            </div>
+
+            <div class="form-group">
+                <label>Room Type</label>
+                <select required>
+                    <option value="">Select Room Type</option>
+                    <option>Standard Room</option>
+                    <option>Deluxe Room</option>
+                    <option>Luxury Suite</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Check-in Date</label>
+                <input type="date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Check-out Date</label>
+                <input type="date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Number of Guests</label>
+                <input type="number" min="1" required>
+            </div>
+
+            <button type="submit">Submit Room Details</button>
+
+        </form>
+
+    </section>
+
+    <!-- EVENT BOOKINGS -->
+
+    <section class="section" id="eventBookings">
+
+        <h2>Event Booking Management</h2>
+
+        <form onsubmit="showMessage(event, 'Event booking details submitted successfully!')">
+
+            <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" required placeholder="Enter customer name">
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" pattern="[0-9]{10}" maxlength="10"
+                       required placeholder="Enter phone number">
+            </div>
+
+            <div class="form-group">
+                <label>Event Type</label>
+                <select required>
+                    <option value="">Select Event Type</option>
+                    <option>Wedding</option>
+                    <option>Birthday Party</option>
+                    <option>Meeting</option>
+                    <option>Conference</option>
+                    <option>Family Function</option>
+                    <option>Other Party</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Event Date</label>
+                <input type="date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Number of Guests</label>
+                <input type="number" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Requirements</label>
+                <textarea placeholder="Enter requirements"></textarea>
+            </div>
+
+            <button type="submit">Submit Event Details</button>
+
+        </form>
+
+    </section>
+
+    <!-- CANCELLATIONS -->
+
+    <section class="section" id="cancellations">
+
+        <h2>Cancellation Management</h2>
+
+        <form onsubmit="showMessage(event, 'Cancellation request submitted successfully!')">
+
+            <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" required placeholder="Enter customer name">
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" pattern="[0-9]{10}" maxlength="10"
+                       required placeholder="Enter phone number">
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" required placeholder="Enter email address">
+            </div>
+
+            <div class="form-group">
+                <label>Booking Type</label>
+                <select required>
+                    <option value="">Select Booking Type</option>
+                    <option>Room Booking</option>
+                    <option>Event Booking</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Booking Date</label>
+                <input type="date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Cancellation Reason</label>
+                <textarea required placeholder="Enter cancellation reason"></textarea>
+            </div>
+
+            <button type="submit">Submit Cancellation</button>
+
+        </form>
+
+    </section>
+
+    <!-- PAYMENT MANAGEMENT -->
+
+    <section class="section" id="payments">
+
+        <h2>Payment Management</h2>
+
+        <p>Enter and manage customer payment details.</p>
+
+        <form id="adminPaymentForm"
+              onsubmit="confirmAdminPayment(event)">
+
+            <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" id="adminCustomerName"
+                       placeholder="Enter customer name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="adminPhone"
+                       placeholder="Enter 10-digit phone number"
+                       pattern="[0-9]{10}" maxlength="10" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="adminEmail"
+                       placeholder="Enter email address" required>
+            </div>
+
+            <div class="form-group">
+                <label>Payment For</label>
+                <select id="adminPaymentType" required>
+                    <option value="">Select Payment Type</option>
+                    <option value="Room Booking">Room Booking</option>
+                    <option value="Event Booking">Event Booking</option>
+                    <option value="Food and Dining">Food and Dining</option>
+                    <option value="Other Services">Other Services</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Amount (₹)</label>
+                <input type="number" id="adminAmount"
+                       placeholder="Enter payment amount"
+                       min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Payment Method</label>
+                <select id="adminPaymentMethod" required>
+                    <option value="">Select Payment Method</option>
+                    <option value="Cash">Cash</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Debit Card">Debit Card</option>
+                    <option value="Credit Card">Credit Card</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Payment Date</label>
+                <input type="date" id="adminPaymentDate" required>
+            </div>
+
+            <div class="form-group">
+                <label>Payment Status</label>
+                <select id="adminPaymentStatus" required>
+                    <option value="">Select Payment Status</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Partially Paid">Partially Paid</option>
+                </select>
+            </div>
+
+            <button type="submit">Confirm Payment</button>
+
+        </form>
+
+        <p class="note">
+            Note: This is a demonstration. No actual payment will be processed.
+            Room amounts are sample rates per night.
+        </p>
+
+    </section>
+
+    <!-- HOTEL SERVICES -->
+
+    <section class="section" id="services">
+
+        <h2>Hotel Services Management</h2>
+
+        <div class="service-grid">
+
+            <div class="service-card">
+                <h3>Room Service</h3>
+                <p>Manage customer room service.</p>
+            </div>
+
+            <div class="service-card">
+                <h3>Food and Dining</h3>
+                <p>Manage food and restaurant services.</p>
+            </div>
+
+            <div class="service-card">
+                <h3>Entertainment Trips</h3>
+                <p>Manage guest entertainment and trips.</p>
+            </div>
+
+            <div class="service-card">
+                <h3>Hotel Facilities</h3>
+                <p>Manage Wi-Fi, swimming pool, parking and other facilities.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<footer>
+    <p>© 2026 Grand Stay Hotel. All Rights Reserved.</p>
+    <p>Kalaburagi, Karnataka, India</p>
+</footer>
+
+<script>
+
+    // Set today's date in payment date field
+
+    document.getElementById("adminPaymentDate").value =
+        new Date().toLocaleDateString("en-CA");
+
+
+    // Load customer details into payment form
+
+    window.addEventListener("DOMContentLoaded", function() {
+
+        const customerName =
+            localStorage.getItem("grandStayCustomerName");
+
+        const phone =
+            localStorage.getItem("grandStayCustomerPhone");
+
+        const email =
+            localStorage.getItem("grandStayCustomerEmail");
+
+        const amount =
+            localStorage.getItem("grandStayRoomAmount");
+
+        if (customerName) {
+            document.getElementById("adminCustomerName").value =
+                customerName;
+        }
+
+        if (phone) {
+            document.getElementById("adminPhone").value =
+                phone;
+        }
+
+        if (email) {
+            document.getElementById("adminEmail").value =
+                email;
+        }
+
+        if (amount) {
+            document.getElementById("adminPaymentType").value =
+                "Room Booking";
+
+            document.getElementById("adminAmount").value =
+                amount;
+        }
+
+        loadRoomBookings();
+
+    });
+
+
+    // DISPLAY ROOM BOOKINGS
+
+    function loadRoomBookings() {
+
+        let bookings = [];
+
+        try {
+
+            bookings = JSON.parse(
+                localStorage.getItem("grandStayRoomBookings") || "[]"
+            );
+
+            if (!Array.isArray(bookings)) {
+                bookings = [];
+            }
+
+        } catch (error) {
+
+            bookings = [];
+
+        }
+
+
+        // Support older customer booking format
+
+        if (bookings.length === 0) {
+
+            const oldName =
+                localStorage.getItem("grandStayCustomerName");
+
+            const oldPhone =
+                localStorage.getItem("grandStayCustomerPhone");
+
+            const oldRoom =
+                localStorage.getItem("grandStayRoomType");
+
+            const oldCheckin =
+                localStorage.getItem("grandStayCheckin");
+
+            const oldCheckout =
+                localStorage.getItem("grandStayCheckout");
+
+            const oldGuests =
+                localStorage.getItem("grandStayGuests");
+
+
+            if (oldName || oldPhone || oldRoom ||
+                oldCheckin || oldCheckout) {
+
+                bookings = [{
+                    name: oldName || "",
+                    phone: oldPhone || "",
+                    roomType: oldRoom || "",
+                    checkin: oldCheckin || "",
+                    checkout: oldCheckout || "",
+                    guests: oldGuests || ""
+                }];
+
+            }
+
+        }
+
+
+        const totalElement =
+            document.getElementById("totalRoomBookings");
+
+        const table =
+            document.getElementById("roomBookingsTable");
+
+
+        if (!totalElement || !table) {
+            return;
+        }
+
+
+        // Update total booking count
+
+        totalElement.textContent = bookings.length;
+
+
+        // Clear previous rows
+
+        table.innerHTML = "";
+
+
+        // If no bookings are available
+
+        if (bookings.length === 0) {
+
+            const row = document.createElement("tr");
+
+            const cell = document.createElement("td");
+
+            cell.colSpan = 6;
+
+            cell.textContent =
+                "No room bookings available.";
+
+            cell.style.textAlign = "center";
+
+            row.appendChild(cell);
+
+            table.appendChild(row);
+
+            return;
+
+        }
+
+
+        // Display every booking
+
+        bookings.forEach(function(booking) {
+
+            const row = document.createElement("tr");
+
+            const values = [
+
+                booking.name || booking.customerName || "",
+
+                booking.phone || booking.phoneNumber || "",
+
+                booking.roomType || booking.roomName || "",
+
+                booking.checkin || booking.checkIn || "",
+
+                booking.checkout || booking.checkOut || "",
+
+                booking.guests || booking.numberOfGuests || ""
+
+            ];
+
+
+            values.forEach(function(value) {
+
+                const cell = document.createElement("td");
+
+                cell.textContent = value;
+
+                row.appendChild(cell);
+
+            });
+
+
+            table.appendChild(row);
+
+        });
+
+    }
+
+
+    // Refresh bookings when another tab changes the data
+
+    window.addEventListener("storage", function(event) {
+
+        if (event.key === "grandStayRoomBookings") {
+
+            loadRoomBookings();
+
+        }
+
+    });
+
+
+    // Other admin forms
+
+    function showMessage(event, message) {
+
+        event.preventDefault();
+
+        alert(message);
+
+        event.target.reset();
+
+    }
+
+
+    // CONFIRM ADMIN PAYMENT
+
+    function confirmAdminPayment(event) {
+
+        event.preventDefault();
+
+
+        const customerName =
+            document.getElementById("adminCustomerName").value;
+
+        const phone =
+            document.getElementById("adminPhone").value;
+
+        const email =
+            document.getElementById("adminEmail").value;
+
+        const paymentType =
+            document.getElementById("adminPaymentType").value;
+
+        const amount =
+            Number(document.getElementById("adminAmount").value);
+
+        const method =
+            document.getElementById("adminPaymentMethod").value;
+
+        const date =
+            document.getElementById("adminPaymentDate").value;
+
+        const status =
+            document.getElementById("adminPaymentStatus").value;
+
+
+        if (amount <= 0) {
+
+            alert("Please enter a valid payment amount.");
+
+            return;
+
+        }
+
+
+        alert(
+
+            "Payment confirmed successfully!\n\n" +
+
+            "Customer Name: " + customerName +
+
+            "\nPhone Number: " + phone +
+
+            "\nEmail Address: " + email +
+
+            "\nPayment For: " + paymentType +
+
+            "\nAmount: ₹" + amount.toLocaleString("en-IN") +
+
+            "\nPayment Method: " + method +
+
+            "\nPayment Date: " + date +
+
+            "\nPayment Status: " + status
+
+        );
+
+
+        document.getElementById("adminPaymentForm").reset();
+
+
+        document.getElementById("adminPaymentDate").value =
+            new Date().toLocaleDateString("en-CA");
+
+    }
+
+</script>
+
+</body>
+</html>

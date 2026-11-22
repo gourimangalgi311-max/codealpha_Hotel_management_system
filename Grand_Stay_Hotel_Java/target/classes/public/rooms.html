@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms & Suites | Grand Stay Hotel</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .rooms-banner {
+            background: linear-gradient(rgba(15,35,40,.7), rgba(15,35,40,.7)),
+            url("https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1600")
+            center/cover;
+            padding: 90px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .rooms-banner h1 {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .room-details {
+            padding: 20px;
+        }
+
+        .room-details ul {
+            list-style: none;
+            margin: 15px 0;
+            color: #666;
+        }
+
+        .room-details li {
+            padding: 5px;
+        }
+
+        .price {
+            color: #a47b3d;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .room-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+        }
+
+        .room-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">GRAND <span>STAY</span></div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="rooms.html">Rooms</a>
+        <a href="customer.html">Customer</a>
+        <a href="login.html">Login</a>
+    </nav>
+</header>
+
+<section class="rooms-banner">
+    <h1>Our Rooms & Suites</h1>
+    <p>Find the perfect room for your comfortable stay.</p>
+</section>
+
+<section class="section">
+
+    <h2>Choose Your Perfect Room</h2>
+    <p class="subtitle">Affordable comfort and quality hospitality</p>
+
+    <div class="cards">
+
+        <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800"
+                 alt="Standard Room">
+
+            <div class="room-details">
+                <h3>Cozy Standard Room</h3>
+                <p>Perfect for individual travellers and couples.</p>
+
+                <ul>
+                    <li>✓ 1 Double Bed</li>
+                    <li>✓ Maximum 2 Guests</li>
+                    <li>✓ Free Wi-Fi</li>
+                    <li>✓ Attached Bathroom</li>
+                    <li>✓ Air Conditioning</li>
+                </ul>
+
+                <p class="price">₹1,800 / Night</p>
+
+                <a href="booking.html?room=Standard" class="btn">
+                    Book This Room
+                </a>
+            </div>
+        </div>
+
+        <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800"
+                 alt="Deluxe Room">
+
+            <div class="room-details">
+                <h3>Grand Deluxe Room</h3>
+                <p>Extra space and comfort for families.</p>
+
+                <ul>
+                    <li>✓ 1 King Size Bed</li>
+                    <li>✓ Maximum 3 Guests</li>
+                    <li>✓ Free Wi-Fi</li>
+                    <li>✓ Premium Bathroom</li>
+                    <li>✓ Air Conditioning</li>
+                </ul>
+
+                <p class="price">₹2,800 / Night</p>
+
+                <a href="booking.html?room=Deluxe" class="btn">
+                    Book This Room
+                </a>
+            </div>
+        </div>
+
+        <div class="room-card">
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800"
+                 alt="Luxury Suite">
+
+            <div class="room-details">
+                <h3>Luxury Suite</h3>
+                <p>Enjoy premium comfort and spacious interiors.</p>
+
+                <ul>
+                    <li>✓ King Size Bed</li>
+                    <li>✓ Maximum 4 Guests</li>
+                    <li>✓ Free Wi-Fi</li>
+                    <li>✓ Living Area</li>
+                    <li>✓ Premium Services</li>
+                </ul>
+
+                <p class="price">₹4,500 / Night</p>
+
+                <a href="booking.html?room=Suite" class="btn">
+                    Book This Room
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section facilities">
+    <h2>Why Choose Our Rooms?</h2>
+
+    <div class="cards">
+        <div class="feature">🛏 Comfortable Beds</div>
+        <div class="feature">❄ Air Conditioning</div>
+        <div class="feature">📶 Free Internet</div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Grand Stay Hotel. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

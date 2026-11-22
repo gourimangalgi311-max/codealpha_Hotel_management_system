@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking History | Grand Stay Hotel</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .history-section {
+            padding: 60px 7%;
+            min-height: 80vh;
+            background: #edf1ef;
+        }
+
+        .history-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+            overflow-x: auto;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 14px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .history-table th {
+            background: #17333b;
+            color: white;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #e4f6e9;
+            color: #176b35;
+            font-weight: bold;
+        }
+
+        .cancel-btn {
+            background: #b83c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 35px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">GRAND <span>STAY</span></div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="customer.html">Dashboard</a>
+        <a href="rooms.html">Rooms</a>
+    </nav>
+</header>
+
+<section class="history-section">
+
+    <h2 style="text-align:center;color:#17333b;">
+        My Booking History
+    </h2>
+
+    <p style="text-align:center;margin:10px 0 30px;color:#777;">
+        View and manage your hotel reservations.
+    </p>
+
+    <div class="history-box">
+
+        <table class="history-table">
+
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Room</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Amount</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="bookingList"></tbody>
+
+        </table>
+
+        <div id="emptyMessage" class="empty-message">
+            <h3>No Bookings Found</h3>
+            <p>Your reservations will appear here.</p>
+            <a href="rooms.html" class="btn">Book a Room</a>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>© 2026 Grand Stay Hotel. All Rights Reserved.</p>
+</footer>
+
+<script>
+function displayBookings() {
+
+    const bookings = JSON.parse(
+        localStorage.getItem("hotelBookings") || "[]"
+    );
+
+    const list = document.getElementById("bookingList");
+    const empty = document.getElementById("emptyMessage");
+
+    list.innerHTML = "";
+
+    if (bookings.length === 0) {
+        empty.style.display = "block";
+        return;
+    }
+
+    empty.style.display = "none";
+
+    bookings.forEach((booking, index) => {
+
+        const row = document.createElement("tr");
+
+        const values = [
+            booking.name,
+            booking.room,
+            booking.checkin,
+            booking.checkout,
+            "₹" + booking.total,
+            booking.paymentStatus,
+            booking.bookingStatus
+        ];
+
+        values.forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value || "-";
+            row.appendChild(cell);
+        });
+
+        const actionCell = document.createElement("td");
+
+        if (booking.bookingStatus !== "Cancelled") {
+
+            const cancelButton = document.createElement("button");
+
+            cancelButton.textContent = "Cancel";
+            cancelButton.className = "cancel-btn";
+
+            cancelButton.addEventListener("click", function() {
+
+                if (confirm("Are you sure you want to cancel this booking?")) {
+
+                    const updated = JSON.parse(
+                        localStorage.getItem("hotelBookings") || "[]"
+                    );
+
+                    updated[index].bookingStatus = "Cancelled";
+
+                    localStorage.setItem(
+                        "hotelBookings", JSON.stringify(updated)
+                    );
+
+                    displayBookings();
+                }
+            });
+
+            actionCell.appendChild(cancelButton);
+
+        } else {
+            actionCell.textContent = "Cancelled";
+        }
+
+        row.appendChild(actionCell);
+        list.appendChild(row);
+    });
+}
+
+displayBookings();
+</script>
+
+</body>
+</html>
